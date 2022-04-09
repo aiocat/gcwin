@@ -26,5 +26,18 @@
     <ClInclude Include="libgcwin.h">
       <Filter>Kaynak Dosyalar</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Üst Bilgi Dosyaları</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Kaynak Dosyaları</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\asus\Downloads\gcwin.ico">
+      <Filter>Kaynak Dosyaları</Filter>
+    </Image>
   </ItemGroup>
 </Project>

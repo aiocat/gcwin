@@ -1,3 +1,17 @@
+/*
+ * GcWin - Global command manager for Windows
+ *
+ * https://github.com/aiocat/gcwin
+ *
+ * Licensed under MIT License
+ *
+ * For more information, please check:
+ * https://github.com/aiocat/gcwin/blob/main/LICENSE
+ *
+ * Copyright (C) 2022, aiocat <aiocat@protonmail.com>
+ *
+ */
+
 #include "libgcwin.h"
 
 // find gcWin path
@@ -30,7 +44,7 @@ void ParseGcWinFile(std::wstring gcwinPath, std::string commandName) {
         // read file line-by-line
         while (std::getline(gcWinFile, gcWinLine)) {
             if (!foundCommand && gcWinLine == commandName) foundCommand = true; // command found
-            else {
+            else if (foundCommand) {
                 if (gcWinLine == std::string()) break; // finish loop
                 else system(gcWinLine.c_str()); // run command
             }
