@@ -13,11 +13,12 @@
  */
 
 #pragma once
+#include <windows.h>
 #include <string>
-#include <iostream>
-#include <fstream>
-#include "shell.h"
+#include <tchar.h>
+#include <processthreadsapi.h>
+#include <shlobj.h>
 
-std::wstring FindGcWinPath(); // find gcWin path
-void ParseGcWinFile(std::wstring gcwinPath, std::string commandName); // parse gcWin file
-void EditGcWinFile(std::wstring gcwinPath); // edit gcwin file
+LPTSTR ToLPTSTR(std::string command); // convert string to lptstr
+LPTSTR ToLPTSTR(std::wstring command); // convert wstring to lptstr
+void CreateShellProcess(LPTSTR command); // create new shell process

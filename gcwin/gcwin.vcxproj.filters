@@ -21,6 +21,9 @@
     <ClCompile Include="libgcwin.cpp">
       <Filter>Kaynak Dosyalar</Filter>
     </ClCompile>
+    <ClCompile Include="shell.cpp">
+      <Filter>Kaynak Dosyalar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libgcwin.h">
@@ -28,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Üst Bilgi Dosyaları</Filter>
+    </ClInclude>
+    <ClInclude Include="shell.h">
+      <Filter>Kaynak Dosyalar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

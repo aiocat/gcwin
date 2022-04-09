@@ -19,7 +19,7 @@ std::wstring FindGcWinPath() {
     WCHAR* localAppDataFolder; // local appdata variable
 
     if (SHGetKnownFolderPath(FOLDERID_LocalAppData, KF_FLAG_CREATE, NULL, &localAppDataFolder) != S_OK) 
-        std::cerr << "can't find local appdata" << std::endl; // find local appdata path
+        std::cerr << "can't find local appdata." << std::endl; // find local appdata path
 
     // set gcWin path location
     std::wstring gcWinPath(localAppDataFolder); // gcwin path variable
@@ -51,7 +51,16 @@ void ParseGcWinFile(std::wstring gcwinPath, std::string commandName) {
         }
         gcWinFile.close(); // close file
         if (!foundCommand) 
-            std::cerr << "command not found" << std::endl; // check if command parsed
+            std::cerr << "command not found." << std::endl; // check if command parsed
     }
-    else std::cerr << "can't open gcwin file" << std::endl;
+    else std::cerr << "can't open gcwin file." << std::endl;
+}
+
+// edit gcwin file
+void EditGcWinFile(std::wstring gcwinPath) {
+    std::string notepadCommand = std::string("notepad ");
+    notepadCommand += std::string(gcwinPath.begin(), gcwinPath.end());
+
+    LPTSTR validCommand = ToLPTSTR(notepadCommand);
+    CreateShellProcess(validCommand);
 }

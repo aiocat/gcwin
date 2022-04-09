@@ -16,10 +16,19 @@
 
 int main(int argc, char** argv)
 {
-    if (argc < 2) std::cerr << "can't find command name" << std::endl; // check argument count
+    if (argc < 2) std::cerr << "invalid command, type \"help\" to list all commands." << std::endl; // check argument count
 
-    std::string commandName = std::string(argv[1]); // get first argument
+    char* command = argv[1]; // get first argument
     std::wstring gcWinPath = FindGcWinPath(); // find gcwin path
 
-    ParseGcWinFile(gcWinPath, commandName); // parse file
+    if (strcmp(command, "run") == 0) {
+        // run command
+        if (argc < 3) std::cerr << "can't find command name." << std::endl; // check argument count
+
+        std::string commandName = std::string(argv[2]); // get command name
+        ParseGcWinFile(gcWinPath, commandName); // parse file
+    } else if (strcmp(command, "edit") == 0) {
+        // edit gcWin file
+        EditGcWinFile(gcWinPath);
+    }
 }

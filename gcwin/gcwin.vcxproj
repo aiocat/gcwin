@@ -144,10 +144,12 @@
   <ItemGroup>
     <ClCompile Include="gcwin.cpp" />
     <ClCompile Include="libgcwin.cpp" />
+    <ClCompile Include="shell.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libgcwin.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="shell.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
