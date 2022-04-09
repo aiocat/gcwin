@@ -13,10 +13,11 @@
  */
 
 #pragma once
+#include <windows.h>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "shell.h"
+#include <shlobj.h>
 
 std::wstring FindGcWinPath(); // find gcWin path
 void ParseGcWinFile(std::wstring gcwinPath, std::string commandName); // parse gcWin file

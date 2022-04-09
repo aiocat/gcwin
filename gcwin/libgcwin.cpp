@@ -61,6 +61,5 @@ void EditGcWinFile(std::wstring gcwinPath) {
     std::string notepadCommand = std::string("notepad ");
     notepadCommand += std::string(gcwinPath.begin(), gcwinPath.end());
 
-    LPTSTR validCommand = ToLPTSTR(notepadCommand);
-    CreateShellProcess(validCommand);
+    system(notepadCommand.c_str());
 }
