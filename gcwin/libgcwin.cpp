@@ -87,3 +87,10 @@ bool CreateGcWinFile() {
     gcWinFile.close();
     return false;
 }
+
+// reset gcWin file
+void ResetGcWinFile(std::wstring gcWinPath) {
+    std::ofstream gcWinFile;
+    gcWinFile.open(gcWinPath.c_str(), std::ofstream::out | std::ofstream::trunc);
+    gcWinFile.close();
+}

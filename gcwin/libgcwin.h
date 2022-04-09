@@ -23,3 +23,4 @@ std::wstring FindGcWinPath(); // find gcWin path
 void ParseGcWinFile(std::wstring gcWinPath, std::string commandName); // parse gcWin file
 int EditGcWinFile(std::wstring gcWinPath); // edit gcWin file
 bool CreateGcWinFile(); // init gcWin file
+void ResetGcWinFile(std::wstring gcWinPath); // reset gcWin file
