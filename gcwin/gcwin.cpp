@@ -28,7 +28,18 @@ int main(int argc, char** argv)
         std::string commandName = std::string(argv[2]); // get command name
         ParseGcWinFile(gcWinPath, commandName); // parse file
     } else if (strcmp(command, "edit") == 0) {
-        // edit gcWin file
-        EditGcWinFile(gcWinPath);
+        EditGcWinFile(gcWinPath); // edit gcWin file
+    } else if (strcmp(command, "init") == 0) {
+        // init gcWin file
+        bool initResult = CreateGcWinFile();
+
+        // check result
+        if (initResult == true) {
+            std::cout << "gcwin file created at ";
+            std::wcout << gcWinPath << std::endl;
+        }
+        else std::cout << "gcwin file already exists." << std::endl;
     }
+
+    return 0;
 }

@@ -20,5 +20,6 @@
 #include <shlobj.h>
 
 std::wstring FindGcWinPath(); // find gcWin path
-void ParseGcWinFile(std::wstring gcwinPath, std::string commandName); // parse gcWin file
-void EditGcWinFile(std::wstring gcwinPath); // edit gcwin file
+void ParseGcWinFile(std::wstring gcWinPath, std::string commandName); // parse gcWin file
+int EditGcWinFile(std::wstring gcWinPath); // edit gcWin file
+bool CreateGcWinFile(); // init gcWin file

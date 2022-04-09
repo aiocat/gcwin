@@ -33,8 +33,8 @@ std::wstring FindGcWinPath() {
 }
 
 // parse gcWin file
-void ParseGcWinFile(std::wstring gcwinPath, std::string commandName) {
-    std::ifstream gcWinFile(gcwinPath); // open gcwin file as read mode
+void ParseGcWinFile(std::wstring gcWinPath, std::string commandName) {
+    std::ifstream gcWinFile(gcWinPath); // open gcwin file as read mode
     bool foundCommand = false;
     commandName += std::string(":"); // edit command name
 
@@ -56,10 +56,34 @@ void ParseGcWinFile(std::wstring gcwinPath, std::string commandName) {
     else std::cerr << "can't open gcwin file." << std::endl;
 }
 
-// edit gcwin file
-void EditGcWinFile(std::wstring gcwinPath) {
+// edit gcWin file
+int EditGcWinFile(std::wstring gcWinPath) {
     std::string notepadCommand = std::string("notepad ");
-    notepadCommand += std::string(gcwinPath.begin(), gcwinPath.end());
+    notepadCommand += std::string(gcWinPath.begin(), gcWinPath.end());
 
-    system(notepadCommand.c_str());
+    return system(notepadCommand.c_str());
+}
+
+// init gcWin file
+bool CreateGcWinFile() {
+    std::wstring filePath = FindGcWinPath(); // get file path
+
+    // create empty file
+    std::ifstream gcWinFile(filePath);
+
+    // check file exists
+    if (!gcWinFile.good()) {
+        // close read mode
+        gcWinFile.close();
+
+        // open as write mode
+        std::ofstream gcWinFile(filePath);
+        gcWinFile << "";
+        gcWinFile.close();
+
+        return true;
+    }
+
+    gcWinFile.close();
+    return false;
 }
