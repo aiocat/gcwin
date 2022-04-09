@@ -6,10 +6,10 @@ Download gcwin from [here](https://github.com/aiocat/gcwin/releases/latest)
 
 ## Setup
 - Add executable to PATH.
-- Create `gcwin` file in `Appdata/Local`
+- Run `gcwin init` command.
 
 ## Usage
-Example `gcwin` file:
+Example `gcwin` file: (you can open the file in notepad with `gcwin edit` command.)
 ```sh
 echo:
 color f0
@@ -22,9 +22,9 @@ npm install
 npm run dev
 ```
 
-Now you are avaible to use commands with `gcwin <command name>`
-- `gcwin svelte`
-- `gcwin echo`
+Now you are avaible to use commands with `gcwin run <command name>`
+- `gcwin run svelte`
+- `gcwin run echo`
 
 ## License
 GcWin is distributed under MIT license. for more information:
