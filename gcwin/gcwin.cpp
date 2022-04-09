@@ -38,9 +38,19 @@ int main(int argc, char** argv)
             std::cout << "gcwin file created at ";
             std::wcout << gcWinPath << std::endl;
         }
-        else std::cout << "gcwin file already exists." << std::endl;
-    } 
+        else std::cerr << "gcwin file already exists." << std::endl;
+    }
     else if (strcmp(command, "reset") == 0) ResetGcWinFile(gcWinPath); // reset gcWin file
+    else if (strcmp(command, "help") == 0) {
+        std::cout << "help: To list all commands" << std::endl;
+        std::cout << "run [command]: Execute a command" << std::endl;
+        std::cout << "edit: Edit gcWin file with notepad" << std::endl;
+        std::cout << "init: Create empty gcWin file" << std::endl;
+        std::cout << "reset: Clear gcWin file" << std::endl;
+    }
+    else {
+        std::cerr << "command not found." << std::endl;
+    }
 
     return 0;
 }
