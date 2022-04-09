@@ -4,10 +4,8 @@
 std::wstring FindGcWinPath() {
     WCHAR* localAppDataFolder; // local appdata variable
 
-    // find local appdata path
-    if (SHGetKnownFolderPath(FOLDERID_LocalAppData, KF_FLAG_CREATE, NULL, &localAppDataFolder) != S_OK) {
-        std::cerr << "can't find local appdata" << std::endl;
-    }
+    if (SHGetKnownFolderPath(FOLDERID_LocalAppData, KF_FLAG_CREATE, NULL, &localAppDataFolder) != S_OK) 
+        std::cerr << "can't find local appdata" << std::endl; // find local appdata path
 
     // set gcWin path location
     std::wstring gcWinPath(localAppDataFolder); // gcwin path variable
@@ -31,29 +29,15 @@ void ParseGcWinFile(std::wstring gcwinPath, std::string commandName) {
 
         // read file line-by-line
         while (std::getline(gcWinFile, gcWinLine)) {
-            if (!foundCommand) {
-                // check if same
-                if (gcWinLine == commandName) {
-                    foundCommand = true;
-                }
-            }
+            if (!foundCommand && gcWinLine == commandName) foundCommand = true; // command found
             else {
-                if (gcWinLine == std::string()) {
-                    break; // finish loop
-                }
-                else {
-                    system(gcWinLine.c_str()); // run command
-                }
+                if (gcWinLine == std::string()) break; // finish loop
+                else system(gcWinLine.c_str()); // run command
             }
         }
         gcWinFile.close(); // close file
-
-        // check if command parsed
-        if (!foundCommand) {
-            std::cerr << "command not found" << std::endl;
-        }
+        if (!foundCommand) 
+            std::cerr << "command not found" << std::endl; // check if command parsed
     }
-    else {
-        std::cerr << "can't open gcwin file" << std::endl;
-    }
+    else std::cerr << "can't open gcwin file" << std::endl;
 }
