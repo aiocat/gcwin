@@ -18,5 +18,13 @@
     <ClCompile Include="gcwin.cpp">
       <Filter>Kaynak Dosyalar</Filter>
     </ClCompile>
+    <ClCompile Include="libgcwin.cpp">
+      <Filter>Kaynak Dosyalar</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libgcwin.h">
+      <Filter>Kaynak Dosyalar</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
