@@ -1,20 +1,33 @@
-﻿// gcwin.cpp : Bu dosya 'main' işlevi içeriyor. Program yürütme orada başlayıp biter.
-//
-
+﻿
 #include <iostream>
+#include <Windows.h>
+#include <string.h>
+#include <shlobj.h>
+
+constexpr int fg_red = 12;
+constexpr int fg_white = 15;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // handle console output
+    SetConsoleTextAttribute(hConsole, fg_white); // set text to white
+
+
+    WCHAR *localAppDataFolder; // local appdata variable
+
+    // find local appdata path
+    if (SHGetKnownFolderPath(FOLDERID_LocalAppData, KF_FLAG_CREATE, NULL, &localAppDataFolder) != S_OK) {
+        SetConsoleTextAttribute(hConsole, fg_red); // set text to red
+        std::cerr << "can't find local appdata" << std::endl;
+    }
+
+    // set gcWin path location
+    std::wstring gcWinPath(localAppDataFolder); // gcwin path variable
+    WCHAR fileNameBuffer[8]; // temporary string for file name
+    size_t size; 
+    mbstowcs_s(&size, fileNameBuffer, "\\gcwin", 7); // c-string to WCHAR
+
+    gcWinPath.append(fileNameBuffer); // append file name buffer
+
+    std::wcout << gcWinPath << std::endl;
 }
-
-// Programı çalıştır: Ctrl + F5 veya Hata Ayıkla > Hata Ayıklamadan Başlat menüsü
-// Programda hata ayıkla: F5 veya Hata Ayıkla > Hata Ayıklamayı Başlat menüsü
-
-// Kullanmaya Başlama İpuçları: 
-//   1. Dosyaları eklemek/yönetmek için Çözüm Gezgini penceresini kullanın
-//   2. Kaynak denetimine bağlanmak için Takım Gezgini penceresini kullanın
-//   3. Derleme çıktısını ve diğer iletileri görmek için Çıktı penceresini kullanın
-//   4. Hataları görüntülemek için Hata Listesi penceresini kullanın
-//   5. Yeni kod dosyaları oluşturmak için Projeye Git > Yeni Öğe ekle veya varolan kod dosyalarını projeye eklemek için Proje > Var Olan Öğeyi Ekle adımlarını izleyin
-//   6. Bu projeyi daha sonra yeniden açmak için Dosya > Aç > Proje'ye gidip .sln uzantılı dosyayı seçin
