@@ -26,3 +26,4 @@ int EditGcWinFile(std::wstring gcWinPath); // edit gcWin file
 bool CreateGcWinFile(); // init gcWin file
 void ResetGcWinFile(std::wstring gcWinPath); // reset gcWin file
 std::vector<std::string> ListGcWinCommands(std::wstring gcWinPath); // list gcWin commands
+std::string DumpGcWinFile(std::wstring gcWinPath); // dump gcWin file

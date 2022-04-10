@@ -120,3 +120,28 @@ std::vector<std::string> ListGcWinCommands(std::wstring gcWinPath) {
 
     return commands;
 }
+
+// dump gcWin file
+std::string DumpGcWinFile(std::wstring gcWinPath) {
+    std::ifstream gcWinFile(gcWinPath); // open as read mode
+    std::string content = std::string(); // content variable
+    
+    // check file open
+    if (gcWinFile.is_open()) {
+        std::string gcWinLine; // current line
+
+        // read file line-by-line
+        while (std::getline(gcWinFile, gcWinLine)) {
+            content += gcWinLine;
+            content.push_back('\n');
+        }
+
+        gcWinFile.close(); // close file
+        return content;
+    }
+    else {
+        // close file
+        gcWinFile.close();
+        return std::string();
+    }
+}

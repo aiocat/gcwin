@@ -21,6 +21,10 @@ int main(int argc, char** argv)
     char* command = argv[1]; // get first argument
     std::wstring gcWinPath = FindGcWinPath(); // find gcwin path
 
+    // error checking
+    if (gcWinPath == std::wstring())
+        std::cerr << "unknown error while finding file path." << std::endl;
+
     if (strcmp(command, "run") == 0) {
         // run command
         if (argc < 3) std::cerr << "can't find command name." << std::endl; // check argument count
@@ -29,7 +33,7 @@ int main(int argc, char** argv)
         int result = ParseGcWinFile(gcWinPath, commandName); // parse file
 
         if (result == 0)
-            std::cerr << "command not found." << std::endl;
+            std::cerr << "command not found. type \"list\" to list all avaible gcWin commands." << std::endl;
         else if (result == -1)
             std::cerr << "can't open gcwin file." << std::endl;
     } 
@@ -54,6 +58,16 @@ int main(int argc, char** argv)
         for (std::string command : commands)
             std::cout << command << std::endl;
     }
+    else if (strcmp(command, "dump") == 0) {
+        // dump gcWin file
+        std::string content = DumpGcWinFile(gcWinPath);
+
+        // error checking
+        if (content == std::string())
+            std::cerr << "unknown error while reading file." << std::endl;
+
+        std::cout << content << std::endl;
+    }
     else if (strcmp(command, "help") == 0) {
         std::cout << "help: To list all commands" << std::endl;
         std::cout << "run [command]: Execute a command" << std::endl;
@@ -61,6 +75,7 @@ int main(int argc, char** argv)
         std::cout << "init: Create empty gcWin file" << std::endl;
         std::cout << "reset: Clear gcWin file" << std::endl;
         std::cout << "list: List all avaible gcWin commands" << std::endl;
+        std::cout << "dump: Output gcWin file content" << std::endl;
     }
     else {
         std::cerr << "command not found." << std::endl;
