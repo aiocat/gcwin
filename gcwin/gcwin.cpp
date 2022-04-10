@@ -90,7 +90,7 @@ int main(int argc, char** argv)
     }
     else if (strcmp(command, "find") == 0) {
         // run command
-        if (argc < 3) std::cerr << "can't find command name." << std::endl; // check argument count
+        if (argc < 3) HandleError("can't find gcWin command name."); // check argument count
 
         std::string commandName = std::string(argv[2]); // get command name
 
