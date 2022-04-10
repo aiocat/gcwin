@@ -3,6 +3,7 @@ Global command manager for Windows
 
 ## Download
 Download gcwin from [here](https://github.com/aiocat/gcwin/releases/latest)
+- **Current Bersion**: `v1.2.0`
 
 ## Setup
 - Add executable to PATH.
