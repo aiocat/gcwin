@@ -34,25 +34,16 @@ std::wstring FindGcWinPath() {
 
 // parse gcWin file
 int ParseGcWinFile(std::wstring gcWinPath, std::string commandName) {
-    std::ifstream gcWinFile(gcWinPath); // open gcwin file as read mode
-    bool foundCommand = false;
-    commandName += std::string(":"); // edit command name
+    Command command = FindGcWinCommand(gcWinPath, commandName);
 
-    if (gcWinFile.is_open()) {
-        std::string gcWinLine; // current line
+    // error checking
+    if (command.error == 0 || command.error == -1)
+        return command.error;
 
-        // read file line-by-line
-        while (std::getline(gcWinFile, gcWinLine)) {
-            if (!foundCommand && gcWinLine == commandName) foundCommand = true; // command found
-            else if (foundCommand) {
-                if (gcWinLine == std::string()) break; // finish loop
-                else system(gcWinLine.c_str()); // run command
-            }
-        }
-        gcWinFile.close(); // close file
-        if (!foundCommand) return 0; // check if command parsed
-    }
-    else return -1;
+    // run commands
+    for (std::string instruction : command.commands)
+        system(instruction.c_str());
+
     return 1;
 }
 
@@ -144,4 +135,40 @@ std::string DumpGcWinFile(std::wstring gcWinPath) {
         gcWinFile.close();
         return std::string();
     }
+}
+
+// find gcWin command
+Command FindGcWinCommand(std::wstring gcWinPath, std::string commandName) {
+    std::ifstream gcWinFile(gcWinPath); // open gcwin file as read mode
+    bool foundCommand = false;
+
+    // add command struct
+    Command command = Command{ commandName, {}, 1 };
+
+    commandName += std::string(":"); // edit command name
+
+    if (gcWinFile.is_open()) {
+        std::string gcWinLine; // current line
+
+        // read file line-by-line
+        while (std::getline(gcWinFile, gcWinLine)) {
+            if (!foundCommand && gcWinLine == commandName) foundCommand = true; // command found
+            else if (foundCommand) {
+                if (gcWinLine == std::string()) break; // finish loop
+                else command.commands.push_back(gcWinLine); // append command
+            }
+        }
+        gcWinFile.close(); // close file
+
+        // check if command parsed
+        if (!foundCommand) {
+            command.error = 0;
+            return command;
+        }; 
+    }
+    else {
+        command.error = -1;
+        return command;
+    };
+    return command;
 }

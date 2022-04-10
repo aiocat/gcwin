@@ -20,6 +20,13 @@
 #include <shlobj.h>
 #include <vector>
 
+// command struct
+struct Command {
+    std::string name;
+    std::vector<std::string> commands;
+    int error;
+};
+
 std::wstring FindGcWinPath(); // find gcWin path
 int ParseGcWinFile(std::wstring gcWinPath, std::string commandName); // parse gcWin file
 int EditGcWinFile(std::wstring gcWinPath); // edit gcWin file
@@ -27,3 +34,4 @@ bool CreateGcWinFile(); // init gcWin file
 void ResetGcWinFile(std::wstring gcWinPath); // reset gcWin file
 std::vector<std::string> ListGcWinCommands(std::wstring gcWinPath); // list gcWin commands
 std::string DumpGcWinFile(std::wstring gcWinPath); // dump gcWin file
+Command FindGcWinCommand(std::wstring gcWinPath, std::string commandName); // find gcWin command
