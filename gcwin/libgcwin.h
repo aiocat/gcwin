@@ -24,3 +24,4 @@ void ParseGcWinFile(std::wstring gcWinPath, std::string commandName); // parse g
 int EditGcWinFile(std::wstring gcWinPath); // edit gcWin file
 bool CreateGcWinFile(); // init gcWin file
 void ResetGcWinFile(std::wstring gcWinPath); // reset gcWin file
+void ListGcWinCommands(std::wstring gcWinPath); // list gcWin commands

@@ -94,3 +94,27 @@ void ResetGcWinFile(std::wstring gcWinPath) {
     gcWinFile.open(gcWinPath.c_str(), std::ofstream::out | std::ofstream::trunc);
     gcWinFile.close();
 }
+
+// list gcWin commands
+void ListGcWinCommands(std::wstring gcWinPath) {
+    std::ifstream gcWinFile(gcWinPath); // open gcwin file as read mode
+    bool inCommand = false;
+
+    if (gcWinFile.is_open()) {
+        std::string gcWinLine; // current line
+
+        // read file line-by-line
+        while (std::getline(gcWinFile, gcWinLine)) {
+            if (!inCommand && gcWinLine.back() == ':') {
+                // command found
+                inCommand = true;
+
+                gcWinLine.pop_back();
+                std::cout << gcWinLine << std::endl;
+            }
+            else if (inCommand && gcWinLine == std::string()) inCommand = false; // command finished
+        }
+        gcWinFile.close(); // close file
+    }
+    else std::cerr << "can't open gcwin file." << std::endl;
+}

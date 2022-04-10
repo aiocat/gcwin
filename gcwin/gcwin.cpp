@@ -41,6 +41,7 @@ int main(int argc, char** argv)
         else std::cerr << "gcwin file already exists." << std::endl;
     }
     else if (strcmp(command, "reset") == 0) ResetGcWinFile(gcWinPath); // reset gcWin file
+    else if (strcmp(command, "list") == 0) ListGcWinCommands(gcWinPath); // list gcWin commands
     else if (strcmp(command, "help") == 0) {
         std::cout << "help: To list all commands" << std::endl;
         std::cout << "run [command]: Execute a command" << std::endl;
