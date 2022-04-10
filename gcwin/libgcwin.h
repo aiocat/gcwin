@@ -18,10 +18,11 @@
 #include <iostream>
 #include <fstream>
 #include <shlobj.h>
+#include <vector>
 
 std::wstring FindGcWinPath(); // find gcWin path
-void ParseGcWinFile(std::wstring gcWinPath, std::string commandName); // parse gcWin file
+int ParseGcWinFile(std::wstring gcWinPath, std::string commandName); // parse gcWin file
 int EditGcWinFile(std::wstring gcWinPath); // edit gcWin file
 bool CreateGcWinFile(); // init gcWin file
 void ResetGcWinFile(std::wstring gcWinPath); // reset gcWin file
-void ListGcWinCommands(std::wstring gcWinPath); // list gcWin commands
+std::vector<std::string> ListGcWinCommands(std::wstring gcWinPath); // list gcWin commands

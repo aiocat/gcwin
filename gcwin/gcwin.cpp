@@ -26,7 +26,12 @@ int main(int argc, char** argv)
         if (argc < 3) std::cerr << "can't find command name." << std::endl; // check argument count
 
         std::string commandName = std::string(argv[2]); // get command name
-        ParseGcWinFile(gcWinPath, commandName); // parse file
+        int result = ParseGcWinFile(gcWinPath, commandName); // parse file
+
+        if (result == 0)
+            std::cerr << "command not found." << std::endl;
+        else if (result == -1)
+            std::cerr << "can't open gcwin file." << std::endl;
     } 
     else if (strcmp(command, "edit") == 0) EditGcWinFile(gcWinPath); // edit gcWin file
     else if (strcmp(command, "init") == 0) {
@@ -41,13 +46,21 @@ int main(int argc, char** argv)
         else std::cerr << "gcwin file already exists." << std::endl;
     }
     else if (strcmp(command, "reset") == 0) ResetGcWinFile(gcWinPath); // reset gcWin file
-    else if (strcmp(command, "list") == 0) ListGcWinCommands(gcWinPath); // list gcWin commands
+    else if (strcmp(command, "list") == 0) {
+        // list gcWin commands
+        std::vector<std::string> commands = ListGcWinCommands(gcWinPath);
+
+        // write commands
+        for (std::string command : commands)
+            std::cout << command << std::endl;
+    }
     else if (strcmp(command, "help") == 0) {
         std::cout << "help: To list all commands" << std::endl;
         std::cout << "run [command]: Execute a command" << std::endl;
         std::cout << "edit: Edit gcWin file with notepad" << std::endl;
         std::cout << "init: Create empty gcWin file" << std::endl;
         std::cout << "reset: Clear gcWin file" << std::endl;
+        std::cout << "list: List all avaible gcWin commands" << std::endl;
     }
     else {
         std::cerr << "command not found." << std::endl;

@@ -19,7 +19,7 @@ std::wstring FindGcWinPath() {
     WCHAR* localAppDataFolder; // local appdata variable
 
     if (SHGetKnownFolderPath(FOLDERID_LocalAppData, KF_FLAG_CREATE, NULL, &localAppDataFolder) != S_OK) 
-        std::cerr << "can't find local appdata." << std::endl; // find local appdata path
+        return std::wstring(); // find local appdata path
 
     // set gcWin path location
     std::wstring gcWinPath(localAppDataFolder); // gcwin path variable
@@ -33,7 +33,7 @@ std::wstring FindGcWinPath() {
 }
 
 // parse gcWin file
-void ParseGcWinFile(std::wstring gcWinPath, std::string commandName) {
+int ParseGcWinFile(std::wstring gcWinPath, std::string commandName) {
     std::ifstream gcWinFile(gcWinPath); // open gcwin file as read mode
     bool foundCommand = false;
     commandName += std::string(":"); // edit command name
@@ -50,10 +50,10 @@ void ParseGcWinFile(std::wstring gcWinPath, std::string commandName) {
             }
         }
         gcWinFile.close(); // close file
-        if (!foundCommand) 
-            std::cerr << "command not found." << std::endl; // check if command parsed
+        if (!foundCommand) return 0; // check if command parsed
     }
-    else std::cerr << "can't open gcwin file." << std::endl;
+    else return -1;
+    return 1;
 }
 
 // edit gcWin file
@@ -96,9 +96,10 @@ void ResetGcWinFile(std::wstring gcWinPath) {
 }
 
 // list gcWin commands
-void ListGcWinCommands(std::wstring gcWinPath) {
+std::vector<std::string> ListGcWinCommands(std::wstring gcWinPath) {
     std::ifstream gcWinFile(gcWinPath); // open gcwin file as read mode
     bool inCommand = false;
+    std::vector<std::string> commands; // commands vector
 
     if (gcWinFile.is_open()) {
         std::string gcWinLine; // current line
@@ -110,11 +111,12 @@ void ListGcWinCommands(std::wstring gcWinPath) {
                 inCommand = true;
 
                 gcWinLine.pop_back();
-                std::cout << gcWinLine << std::endl;
+                commands.push_back(gcWinLine);
             }
             else if (inCommand && gcWinLine == std::string()) inCommand = false; // command finished
         }
         gcWinFile.close(); // close file
     }
-    else std::cerr << "can't open gcwin file." << std::endl;
+
+    return commands;
 }
